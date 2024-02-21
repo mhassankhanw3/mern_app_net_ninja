@@ -1,10 +1,19 @@
 require("dotenv").config();
 const express = require("express");
+const cors = require("cors");
 const workoutRoutes = require("./routes/workouts.js");
 const mongoose = require("mongoose");
 
 // express app
 const app = express();
+
+// Use CORS middleware
+app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:5173", // Replace with your frontend URL
+  })
+);
 
 // middleware
 app.use(express.json());
