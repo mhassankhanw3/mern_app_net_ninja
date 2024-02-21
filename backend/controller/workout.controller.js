@@ -24,18 +24,53 @@ const getSingleWorkout = async (req, res) => {
 // create a new workout
 
 const createWorkout = async (req, res) => {
-  const { title, load, reps } = req.body;
+  const { title, load, reps, images } = req.body;
   try {
-    const workout = await Workout.create({ title, load, reps });
+    const workout = await Workout.create({ title, load, reps, images });
     res.status(200).json(workout);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
-  res.json({ mssg: "post A NEW wORKOUT!" });
+};
+
+// delete a workout
+
+const deleteWorkout = async (req, res) => {
+  const { id } = req.params;
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(404).json({ error: "No Such Workout" });
+  }
+  const workout = await Workout.findByIdAndDelete({ _id: id });
+  if (!workout) {
+    return res.status(400).json({ error: "No Such Workout found!" });
+  }
+  return res.status(200).json(workout);
 };
 
 // Update a workout
 
-// delete a workout
+const updateWorkout = async (req, res) => {
+  const { id } = req.params;
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(400).json({ error: "No Such Workout Update Found!" });
+  }
+  const workout = await Workout.findByIdAndUpdate(
+    { _id: id },
+    {
+      ...req.body,
+    }
+  );
 
-module.exports = { createWorkout, getWorkouts, getSingleWorkout };
+  if (!workout) {
+    return res.status(400).json({ error: "No Such Workout found!" });
+  }
+  return res.status(200).json(workout);
+};
+
+module.exports = {
+  createWorkout,
+  getWorkouts,
+  getSingleWorkout,
+  deleteWorkout,
+  updateWorkout,
+};
