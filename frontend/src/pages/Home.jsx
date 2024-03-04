@@ -5,8 +5,8 @@ import { useWorkoutsContext } from "../hooks/useWorkoutsContext";
 
 export default function Home() {
   // const [workouts, setWorkouts] = useState(null);
-
   const { workouts, dispatch } = useWorkoutsContext();
+
   useEffect(() => {
     const fetchWorkout = async () => {
       const response = await fetch("/api/workouts/");
