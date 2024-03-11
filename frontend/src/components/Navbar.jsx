@@ -9,6 +9,11 @@ export default function Navbar() {
           Workout Buddy
         </span>
       </Link>
+      <div>
+        <div>
+          <Link to="/signin">Login</Link>
+        </div>
+      </div>
     </nav>
   );
 }
