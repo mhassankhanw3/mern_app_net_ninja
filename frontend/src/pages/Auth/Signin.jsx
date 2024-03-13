@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigation } from "react-router-dom";
+import { Link, useNavigation } from "react-router-dom";
 
 const Signin = () => {
   const [email, setEmail] = useState("");
@@ -88,9 +88,14 @@ const Signin = () => {
 
               <div className="text-center text-sm">
                 Already have an account?
-                <a className="underline ml-1" href="#" onClick={() => {}}>
+                <Link
+                  to="/signup"
+                  className="underline ml-1"
+                  href="#"
+                  onClick={() => {}}
+                >
                   Create account
-                </a>
+                </Link>
               </div>
             </div>
           </div>

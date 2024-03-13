@@ -1,7 +1,9 @@
 import React, { useState } from "react";
-import { useNavigation } from "react-router-dom";
+import { useSignup } from "../../hooks/useSignup";
+import { Link } from "react-router-dom";
 
 const Signup = () => {
+  const { signup, error, isLoading } = useSignup();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -15,7 +17,7 @@ const Signup = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
+    await signup(email, password);
     console.log("Email:", email);
     console.log("Password:", password);
   };
@@ -70,11 +72,17 @@ const Signup = () => {
                 />
               </div>
               <button
+                disabled={isLoading}
                 className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-blue-600 text-white hover:bg-blue-600/80 h-10 px-4 py-2 w-full"
                 type="submit"
               >
                 Sign Up
               </button>
+              {error && (
+                <div className="text-sm bg-red-100 text-red-600 border-[1px] border-red-300 rounded-lg py-2 px-3 ">
+                  {error}
+                </div>
+              )}
             </div>
             <div
               data-orientation="horizontal"
@@ -88,9 +96,9 @@ const Signup = () => {
 
               <div className="text-center text-sm">
                 Already have an account?
-                <a className="underline ml-1" href="#" onClick={() => {}}>
+                <Link to="/signin" className="underline ml-1" href="#">
                   Login
-                </a>
+                </Link>
               </div>
             </div>
           </div>
