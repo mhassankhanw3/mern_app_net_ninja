@@ -18,8 +18,8 @@ const Signup = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     await signup(email, password);
-    console.log("Email:", email);
-    console.log("Password:", password);
+    // console.log("Email:", email);
+    // console.log("Password:", password);
   };
 
   return (

@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import { Link, useNavigation } from "react-router-dom";
+import { useLogin } from "../../hooks/useLogin";
 
 const Signin = () => {
+  const { login, error, isLoading } = useLogin();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -15,9 +18,10 @@ const Signin = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    await login(email, password);
 
-    console.log("Email:", email);
-    console.log("Password:", password);
+    // console.log("Email:", email);
+    // console.log("Password:", password);
   };
 
   return (
@@ -75,6 +79,11 @@ const Signin = () => {
               >
                 Sign In
               </button>
+              {error && (
+                <div className="text-sm bg-red-100 text-red-600 border-[1px] border-red-300 rounded-lg py-2 px-3 ">
+                  {error}
+                </div>
+              )}
             </div>
             <div
               data-orientation="horizontal"
